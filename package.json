@@ -1,0 +1,22 @@
+{
+  "name": "cheat-sheet-oscp",
+  "version": "1.0.0",
+  "description": "OSCP dynamic cheat sheet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/almounah/cheat-sheet-oscp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/almounah/cheat-sheet-oscp/issues"
+  },
+  "homepage": "https://github.com/almounah/cheat-sheet-oscp#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}
