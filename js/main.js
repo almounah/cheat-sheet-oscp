@@ -54,6 +54,7 @@ function add_section_content(elemToAdd, sectionName) {
     for (const commandDescription in dataJson) {
         var commandDescriptionDiv = document.createElement("div")
         elemToAdd.appendChild(commandDescriptionDiv)
+        commandDescriptionDiv.className = "search-me"
 
         var labelElem = document.createElement("label")
         commandDescriptionDiv.appendChild(labelElem)
@@ -90,7 +91,7 @@ function updateElement(inputVarName) {
     for (let i = 0; i < toupdate.length; i++) {
         const element = toupdate[i];
         var elementIDSplited = element.id.split("-")
-        var commandToUpdateSection  = commands[elementIDSplited[0]]
+        var commandToUpdateSection = commands[elementIDSplited[0]]
 
         var commandToUpdate = commandToUpdateSection[Object.keys(commandToUpdateSection)[elementIDSplited[1]]]
         console.log(commandToUpdate)
@@ -128,6 +129,67 @@ function add_input_fields(parentElem) {
     }
 }
 
+function search() {
+    var stringSearchFor = document.getElementById("bar-search").value
+    var toModify = document.querySelectorAll("." + "search-me")
+    if (stringSearchFor === "") {
+        for (let i = 0; i < toModify.length; i++) {
+            toModify[i].classList.remove("hidden")
+        }
+        return;
+    }
+
+    for (let i = 0; i < toModify.length; i++) {
+        var kids = toModify[i].getElementsByTagName("*")
+        var toDelete = true;
+        for (let i = 0; i < kids.length; i++) {
+            const element = kids[i];
+            if (element.tagName === "LABEL" && element.innerHTML.includes(stringSearchFor)) {
+                console.log(element.innerHTML)
+                toDelete = false
+            }
+            if (element.tagName === "INPUT" && element.value.includes(stringSearchFor)) {
+                toDelete = false
+            }
+        }
+        if (toDelete) {
+            toModify[i].classList.add("hidden")
+        }
+    }
+
+
+}
+
+
+function add_search_bar(parentElem) {
+    var searchDiv = document.createElement("div")
+    parentElem.appendChild(searchDiv)
+    searchDiv.className = "p-4"
+
+    var labelElem = document.createElement("label")
+    searchDiv.appendChild(labelElem)
+    labelElem.for = "default-search"
+    labelElem.className = "mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+
+    var barDiv = document.createElement("div")
+    searchDiv.appendChild(barDiv)
+    barDiv.className = "relative"
+
+    var svgDiv = document.createElement("div")
+    barDiv.appendChild(svgDiv)
+    svgDiv.className = "absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+    svgDiv.innerHTML = `<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/></svg>`
+
+    var inputElem = document.createElement("input")
+    barDiv.appendChild(inputElem)
+    inputElem.type = "search"
+    inputElem.className = "block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    inputElem.setAttribute("placeholder", "Search here ...")
+    inputElem.id = "bar-search"
+
+    inputElem.addEventListener("input", search)
+}
+
 function add_content() {
 
     var body_main_div = document.createElement("div")
@@ -135,6 +197,8 @@ function add_content() {
     body_main_div.className = "p-4 sm:ml-64"
 
     add_input_fields(body_main_div)
+
+    add_search_bar(body_main_div)
 
     var content = document.createElement("div")
     body_main_div.appendChild(content)
