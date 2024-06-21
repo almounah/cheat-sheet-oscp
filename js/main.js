@@ -65,12 +65,12 @@ function add_section_content(elemToAdd, sectionName) {
         commandDescriptionDiv.appendChild(commandElem)
         commandElem.className = "relative mb-6"
 
-        var inputElem = document.createElement("input")
+        var inputElem = document.createElement("textarea")
         commandElem.appendChild(inputElem)
-        inputElem.type = "text"
         inputElem.id = sections[sectionName] + "-" + commandId
-        inputElem.className = "col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 "
-        inputElem.value = prepare(dataJson[commandDescription])
+        inputElem.className = "col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none "
+        inputElem.innerHTML = prepare(dataJson[commandDescription])
+        inputElem.spellcheck = false
         for (const inputVarName in inputVar) {
             if (dataJson[commandDescription].includes("{{" + inputVarName + "}}")) {
                 inputElem.className += inputVarName + " "
@@ -97,7 +97,7 @@ function updateElement(inputVarName) {
         console.log(commandToUpdate)
         console.log(inputVarName)
         console.log(elementIDSplited)
-        element.value = prepare(commandToUpdate)
+        element.innerHTML = prepare(commandToUpdate)
     }
 
 }
@@ -148,12 +148,15 @@ function search() {
                 console.log(element.innerHTML)
                 toDelete = false
             }
-            if (element.tagName === "INPUT" && element.value.includes(stringSearchFor)) {
+            if (element.tagName === "TEXTAREA" && element.innerHTML.includes(stringSearchFor)) {
                 toDelete = false
             }
         }
         if (toDelete) {
             toModify[i].classList.add("hidden")
+        } else {
+            toModify[i].classList.remove("hidden")
+        
         }
     }
 
