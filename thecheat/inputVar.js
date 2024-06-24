@@ -8,5 +8,7 @@ export const inputVar = {
     "PASSWORD": "Enter Password",
     "NTLMHASH": "Enter NTLM Hash for authentication",
     "LFILE": "Enter file to transfer to victim",
-    "RFILE": "Enter file to download from victim"
+    "RFILE": "Enter file to download from victim",
+    "DCIP": "IP of the DC",
+    "DOMAIN": "Enter AD Domain Name"
 }

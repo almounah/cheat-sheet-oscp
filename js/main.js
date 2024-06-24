@@ -38,7 +38,7 @@ function prepare(command) {
     for (const inputVarName in inputVar) {
         var enteredValue = document.getElementById(inputVarName).value
         if (result.includes("{{" + inputVarName + "}}")) {
-            if (enteredValue !== inputVar[inputVarName]) {
+            if (enteredValue !== "") {
                 result = result.replace("{{" + inputVarName + "}}", enteredValue);
             }
         }
@@ -68,7 +68,7 @@ function add_section_content(elemToAdd, sectionName) {
         var inputElem = document.createElement("textarea")
         commandElem.appendChild(inputElem)
         inputElem.id = sections[sectionName] + "-" + commandId
-        inputElem.className = "col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none "
+        inputElem.className = "col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none "
         inputElem.innerHTML = prepare(dataJson[commandDescription])
         inputElem.spellcheck = false
         for (const inputVarName in inputVar) {
@@ -144,11 +144,11 @@ function search() {
         var toDelete = true;
         for (let i = 0; i < kids.length; i++) {
             const element = kids[i];
-            if (element.tagName === "LABEL" && element.innerHTML.includes(stringSearchFor)) {
+            if (element.tagName === "LABEL" && element.innerHTML.toLowerCase().includes(stringSearchFor.toLowerCase())) {
                 console.log(element.innerHTML)
                 toDelete = false
             }
-            if (element.tagName === "TEXTAREA" && element.innerHTML.includes(stringSearchFor)) {
+            if (element.tagName === "TEXTAREA" && element.innerHTML.toLowerCase().includes(stringSearchFor.toLowerCase())) {
                 toDelete = false
             }
         }
@@ -193,11 +193,31 @@ function add_search_bar(parentElem) {
     inputElem.addEventListener("input", search)
 }
 
+function add_title(parent) {
+
+    var titlePicElem = document.createElement("div")
+    parent.appendChild(titlePicElem)
+    titlePicElem.className = "flex items-center justify-center"
+
+    var titleElem = document.createElement("h1")
+    titlePicElem.appendChild(titleElem)
+
+    titleElem.innerHTML = `<mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">Roxy</mark> OSCP Cheat Sheet`
+    titleElem.className = "mb-8 mr-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+
+    var picElem = document.createElement("img")
+    titlePicElem.appendChild(picElem)
+    picElem.className = "rounded-full w-48 transition-all duration-300 blur-sm hover:blur-none"
+    picElem.src = "./assets/roxy.jpeg"
+}
+
 function add_content() {
 
     var body_main_div = document.createElement("div")
     document.body.appendChild(body_main_div)
     body_main_div.className = "p-4 sm:ml-64"
+
+    add_title(body_main_div)
 
     add_input_fields(body_main_div)
 
