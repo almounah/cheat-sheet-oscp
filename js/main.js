@@ -129,17 +129,14 @@ function add_input_fields(parentElem) {
     }
 }
 
-function search() {
-    var stringSearchFor = document.getElementById("bar-search").value
-    var toModify = document.querySelectorAll("." + "search-me")
-    if (stringSearchFor === "") {
-        for (let i = 0; i < toModify.length; i++) {
-            toModify[i].classList.remove("hidden")
-        }
-        return;
-    }
+function searchSingleString(stringSearchFor) {
 
+    var sectionTitle = document.querySelectorAll("." + "section-title")
+    var toModify = document.querySelectorAll("." + "search-me")
     for (let i = 0; i < toModify.length; i++) {
+        if (toModify[i].classList.contains("hidden")) {
+            continue
+        }
         var kids = toModify[i].getElementsByTagName("*")
         var toDelete = true;
         for (let i = 0; i < kids.length; i++) {
@@ -156,11 +153,52 @@ function search() {
             toModify[i].classList.add("hidden")
         } else {
             toModify[i].classList.remove("hidden")
-        
+
         }
     }
 
+    for (let i = 0; i < sectionTitle.length; i++) {
+        const element = sectionTitle[i];
+        var toDelete = true
+        var siblings = element.parentNode.childNodes
+        console.log("Here")
+        for (let i = 0; i < siblings.length; i++) {
+            const toCheck = siblings[i];
+            if (toCheck.classList.contains("search-me") && !toCheck.classList.contains("hidden")) {
+                toDelete = false
+            }
 
+        }
+        if (toDelete) {
+            element.classList.add("hidden")
+        } else {
+            element.classList.remove("hidden")
+
+        }
+
+    }
+
+}
+
+
+function search() {
+    var stringSearchFor = document.getElementById("bar-search").value
+    var sectionTitle = document.querySelectorAll("." + "section-title")
+    var toModify = document.querySelectorAll("." + "search-me")
+    if (true) {
+        for (let i = 0; i < toModify.length; i++) {
+            toModify[i].classList.remove("hidden")
+        }
+        for (let i = 0; i < sectionTitle.length; i++) {
+            sectionTitle[i].classList.remove("hidden");
+        }
+    }
+
+    var splitString = stringSearchFor.split(" ")
+    for (let i = 0; i < splitString.length; i++) {
+        searchSingleString(splitString[i])
+        
+    }
 }
 
 
@@ -234,7 +272,7 @@ function add_content() {
 
         var sectionTitle = document.createElement("div")
         sectionContentElem.appendChild(sectionTitle)
-        sectionTitle.className = "text-3xl dark:text-white mb-3"
+        sectionTitle.className = "text-3xl dark:text-white mb-3 section-title"
         sectionContentElem.id = sections[sectionName]
         sectionTitle.innerHTML = sectionName
 
