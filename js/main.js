@@ -68,7 +68,7 @@ function add_section_content(elemToAdd, sectionName) {
         var inputElem = document.createElement("textarea")
         commandElem.appendChild(inputElem)
         inputElem.id = sections[sectionName] + "-" + commandId
-        inputElem.className = "col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none "
+        inputElem.className = "col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-y "
         inputElem.innerHTML = prepare(dataJson[commandDescription])
         inputElem.spellcheck = false
         for (const inputVarName in inputVar) {
