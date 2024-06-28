@@ -7,6 +7,7 @@ export const sections = {
     "Windows Connections": "wincon",
     "Windows Potatoes": "winpot",
     "Linux Enumeration": "linenum",
+    "Ligolo Pivot": "ligpivot",
     "AD Attacks": "adattack",
 
 }

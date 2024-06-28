@@ -39,7 +39,7 @@ function prepare(command) {
         var enteredValue = document.getElementById(inputVarName).value
         if (result.includes("{{" + inputVarName + "}}")) {
             if (enteredValue !== "") {
-                result = result.replace("{{" + inputVarName + "}}", enteredValue);
+                result = result.replaceAll("{{" + inputVarName + "}}", enteredValue);
             }
         }
     }
@@ -97,7 +97,7 @@ function updateElement(inputVarName) {
         console.log(commandToUpdate)
         console.log(inputVarName)
         console.log(elementIDSplited)
-        element.innerHTML = prepare(commandToUpdate)
+        element.value = prepare(commandToUpdate)
     }
 
 }
