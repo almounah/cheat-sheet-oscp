@@ -269,10 +269,11 @@ function add_content() {
     for (const sectionName in sections) {
         var sectionContentElem = document.createElement("div")
         content.appendChild(sectionContentElem)
+        sectionContentElem.className = "mb-8"
 
         var sectionTitle = document.createElement("div")
         sectionContentElem.appendChild(sectionTitle)
-        sectionTitle.className = "text-3xl dark:text-white mb-3 section-title"
+        sectionTitle.className = "text-3xl font-semibold dark:text-white mb-3 section-title"
         sectionContentElem.id = sections[sectionName]
         sectionTitle.innerHTML = sectionName
 
